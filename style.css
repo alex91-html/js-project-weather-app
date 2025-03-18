@@ -8,7 +8,7 @@ html {
 
 body {
   font-family: roboto;
-  padding: 20px;
+  padding: 0px;
   margin: 0;
 }
 
@@ -18,6 +18,7 @@ main {
   background-color: white;
 }
 
+/*
 .color-box {
   border-radius: 100%;
   overflow: hidden;
@@ -30,11 +31,13 @@ main {
   top: -150px;
 
 }
+  */
 
+/*clip-path?*/
 .current-weather {
+  border-radius: 0 0 50% 50%;
   background: linear-gradient(#8589FF, #E8E9FF);
   color: white;
-  z-index: 3;
 
 }
 
