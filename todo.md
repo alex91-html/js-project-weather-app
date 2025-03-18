@@ -45,7 +45,7 @@ $ git push
 - [] the bow thing
 
 #### Alex
-- [] make it mobile first
+- [x] make it mobile first
 - [] Api link
 
 
