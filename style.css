@@ -87,19 +87,28 @@ p {
   list-style-type: none;
 
 }
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Moves content to the right */
+  padding: 20px; /* Adds space around */
+}
+
 .round-button {
-  background-color: blue;  /* Button color */
-  color: white;            /* Text color */
-  padding: 10px 20px;      /* Space inside the button */
-  border: none;            /* Removes default border */
-  border-radius: 50px;     /* Makes the button round */
-  cursor: pointer;         /* Changes cursor on hover */
-  font-size: 16px;         /* Adjusts text size */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
+  background-color: #757AFF;
+  color: white;
+  width: 80px;
+  height: 80px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .round-button:hover {
-  background-color: darkblue; 
+  background-color: darkblue;
 }
 
 
