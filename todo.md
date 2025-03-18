@@ -45,12 +45,12 @@ $ git push
 - [] the bow thing
 
 #### Alex
-- [x] make it mobile first
+- [] make it mobile first
 - [] Api link
 
 
 #### Sofia
-- [] adjust the padding/margin for the text layouts
+- [x] adjust the padding/margin for the text layouts
 
 -------------------------------------------
 

@@ -5,26 +5,55 @@ html {
   padding: 0;
 }
 
-*/ body {
-  font-family: roboto;
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
 main {
   width: 100%;
-  height: 500px;
-  background-color: white;
+  min-height: 100vh;
   /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
 }
 
+/*
+.color-box {
+  border-radius: 100%;
+  overflow: hidden;
+  height: 736px;
+  width: 844px;
+  position: fixed;
+  z-index: -1;
+  background: linear-gradient(#8589FF, #E8E9FF);
+  left: -211px;
+  top: -150px;
+
+}
+  */
+
+
 .current-weather {
+  /* border-radius: 0 0 50% 50%; */
   background: linear-gradient(#8589FF, #E8E9FF);
   color: white;
-  z-index: 3;
+  width: 100%;
+  max-width: 320px;
+  /* padding: 20px; */
+  margin-bottom: 20px;
+  /* text-align: center; */
+}
 
+.weather-forecast {
+  display: flex;
+  align-items: left;
+  gap: 230px;
+  margin-top: 20px;
 }
 
 .content {
-  padding: 20px;
+  /* padding: 10px; */
 }
 
 h1 {
@@ -49,7 +78,6 @@ p {
 }
 
 .sunrise {
-
   font-size: 22px;
   display: flex;
   flex-direction: row;
@@ -57,7 +85,6 @@ p {
 }
 
 .sunset {
-
   font-size: 22px;
   display: flex;
   flex-direction: row;
@@ -74,15 +101,6 @@ p {
 
 }
 
-
-#weather-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 230px;
-  margin-top: 20px;
-}
-
 .days-column,
 .temps-column,
 .icons-column {
@@ -94,7 +112,7 @@ p {
 .day,
 .temp,
 .week-icon {
-  padding: 10px;
+  /* padding: 10px; */
   font-size: 20px;
   border-bottom: 1px solid #ddd;
 }
@@ -104,4 +122,8 @@ p {
 
 }
 
-@media (min-width: 1200px) {}
+@media (min-width: 600px) {
+  main {
+    max-width: 400px;
+  }
+}
