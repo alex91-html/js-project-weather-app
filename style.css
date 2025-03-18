@@ -1,5 +1,15 @@
+/* *,
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+
+
 body {
   font-family: roboto;
+  padding: 20px;
+  margin: 0;
 }
 
 main {
@@ -8,13 +18,99 @@ main {
   background-color: white;
 }
 
+.color-box {
+  border-radius: 100%;
+  overflow: hidden;
+  height: 736px;
+  width: 844px;
+  position: fixed;
+  z-index: -1;
+  background: linear-gradient(#8589FF, #E8E9FF);
+  left: -211px;
+  top: -150px;
+
+}
+
 .current-weather {
+  background: linear-gradient(#8589FF, #E8E9FF);
   color: white;
-  background: linear-gradient(45deg, #8589FF 50%, #E8E9FF 50%);
+  z-index: 3;
 
 }
 
 h1 {
   font-size: 120px;
+
+}
+
+h2 {
+  font-size: 34px;
+}
+
+p {
+  font-size: 22px;
+
+}
+
+.sunrise-sunset {
+  display: flex;
+  flex-direction: row;
+  gap: 38px;
+  padding: 10px;
+}
+
+.sunrise {
+
+  font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  gap: 22px;
+}
+
+.sunset {
+
+  font-size: 22px;
+  display: flex;
+  flex-direction: row;
+  gap: 22px;
+}
+
+.forecast {
+  color: #707070;
+  font-size: 20px;
+}
+
+.forecast ul {
+  list-style-type: none;
+
+}
+
+
+#weather-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 230px;
+  margin-top: 20px;
+}
+
+.days-column,
+.temps-column,
+.icons-column {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.day,
+.temp,
+.week-icon {
+  padding: 10px;
+  font-size: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.temp {
+  text-align: right;
 
 }
