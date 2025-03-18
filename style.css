@@ -1,16 +1,14 @@
-git
-/* *,
+*,
 html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-} */
+}
 
 
 body {
   font-family: roboto;
-  padding: 20px;
-  margin: 0;
+
 }
 
 main {
@@ -19,11 +17,31 @@ main {
   background-color: white;
 }
 
+/*
+.color-box {
+  border-radius: 100%;
+  overflow: hidden;
+  height: 736px;
+  width: 844px;
+  position: fixed;
+  z-index: -1;
+  background: linear-gradient(#8589FF, #E8E9FF);
+  left: -211px;
+  top: -150px;
+
+}
+  */
+
+/*clip-path?*/
 .current-weather {
+  /* border-radius: 0 0 50% 50%; */
   background: linear-gradient(#8589FF, #E8E9FF);
   color: white;
-  z-index: 3;
 
+}
+
+.content {
+  padding: 30px;
 }
 
 h1 {
