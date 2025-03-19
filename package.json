@@ -1,0 +1,23 @@
+{
+  "name": "js-project-weather-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex91-html/js-project-weather-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alex91-html/js-project-weather-app/issues"
+  },
+  "homepage": "https://github.com/alex91-html/js-project-weather-app#readme",
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
+}
