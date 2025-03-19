@@ -19,7 +19,7 @@ $ git push
 - [x] structure html
 - [x] give class to tags
 - [x] styling 
-- [] make it mobile first <!--alex-->
+- [/] make it mobile first <!--alex-->
 
 #### HTML
 - [x]Creating list for monday,thuseday,etc..
@@ -30,7 +30,7 @@ $ git push
 - [x] make a button <!-- Selin -->
 
 #### css
-- [] adjust the padding/margin for the text layouts <!-- Sofia -->
+- [x] adjust the padding/margin for the text layouts <!-- Sofia -->
 - [/] btn style <!-- Selin -->
 - [x] the bow thing <!-- Oscar -->
 
