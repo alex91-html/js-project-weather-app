@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             args_1[_i] = arguments[_i];
         }
         return __awaiter(_this, __spreadArray([], args_1, true), void 0, function (city) {
-            var currentWeatherURL, forecastURL, weatherResponse, weatherData, forecastResponse, forecastData, error_1;
+            var currentWeatherURL, forecastURL, weatherResponse, weatherData, forecastResponse, forecastData, weatherCondition, weatherImage, weatherImgElement, currentWeatherDiv, error_1;
             if (city === void 0) { city = "Stockholm"; }
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -89,14 +89,25 @@ document.addEventListener("DOMContentLoaded", function () {
                         document.getElementById("temperature").textContent = "".concat(Math.round(weatherData.main.temp), "\u00B0C");
                         document.getElementById("city").textContent = weatherData.name;
                         document.getElementById("weather-condition").textContent = weatherData.weather[0].description;
+                        weatherCondition = weatherData.weather[0].main;
+                        weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg";
+                        weatherImgElement = document.createElement("img");
+                        weatherImgElement.src = weatherImage;
+                        weatherImgElement.alt = weatherCondition;
+                        weatherImgElement.className = "weather-icon"; // Add a class for styling
+                        currentWeatherDiv = document.getElementById("current-weather");
+                        currentWeatherDiv.innerHTML = ""; // Clear existing content
+                        currentWeatherDiv.appendChild(weatherImgElement);
                         // Update sunrise and sunset times
-                        document.getElementById("sunrise-time").textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-US", {
+                        document.getElementById("sunrise-time").textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-GB", {
                             hour: "2-digit",
                             minute: "2-digit",
+                            hour12: false,
                         });
-                        document.getElementById("sunset-time").textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-US", {
+                        document.getElementById("sunset-time").textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-GB", {
                             hour: "2-digit",
                             minute: "2-digit",
+                            hour12: false,
                         });
                         updateForecast(forecastData);
                         return [3 /*break*/, 6];

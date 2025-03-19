@@ -9,7 +9,7 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 100;
   background-color: lightgrey;
   display: flex;
   justify-content: center;
@@ -18,7 +18,7 @@ body {
 }
 
 img {
-  height: 41px;
+  height: 35px;
 }
 
 /* Main container */
@@ -66,27 +66,36 @@ img {
   justify-content: center;
 }
 
-.current-weather h1 {
-  font-size: 110px;
+.weather-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  position: absolute;
+  right: 20px;
+  top: 100px;
 }
 
-.current-weather h2 {
-  font-size: 34px;
+#temperature {
+  font-size: 90px;
+}
+
+#city {
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
-/* Sunrise & Sunset */
+
 .sunrise-sunset {
   display: flex;
   flex-direction: row;
   gap: 30px;
-  font-size: 22px;
+  font-size: 15px;
   margin-bottom: 50px;
 }
 
 .sunrise,
 .sunset {
-  font-size: 18px;
+  font-size: 15px;
   display: flex;
   flex-direction: row;
   gap: 22px;
@@ -150,7 +159,7 @@ nav {
 .day,
 .temp,
 .week-icon {
-  font-size: 20px;
+  font-size: 15px;
   /* border-bottom: 1px solid #ddd; */
   padding: 8px 0;
   text-decoration: none;

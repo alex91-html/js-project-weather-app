@@ -59,18 +59,37 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!forecastResponse.ok) throw new Error(`Forecast data not available (${forecastResponse.status})`);
       const forecastData: ForecastData = await forecastResponse.json();
 
+
       document.getElementById("temperature")!.textContent = `${Math.round(weatherData.main.temp)}°C`;
       document.getElementById("city")!.textContent = weatherData.name;
       document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
 
+
+
+      const weatherCondition = weatherData.weather[0].main; // Get main weather condition
+      const weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg"; // Default to Sun.svg
+
+      const weatherImgElement = document.createElement("img"); // Create image element
+      weatherImgElement.src = weatherImage;
+      weatherImgElement.alt = weatherCondition;
+      weatherImgElement.className = "weather-icon"; // Add a class for styling
+
+      const currentWeatherDiv = document.getElementById("current-weather")!;
+      currentWeatherDiv.innerHTML = ""; // Clear existing content
+      currentWeatherDiv.appendChild(weatherImgElement);
+
+
+
       // Update sunrise and sunset times
-      document.getElementById("sunrise-time")!.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-US", {
+      document.getElementById("sunrise-time")!.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-GB", {
         hour: "2-digit",
         minute: "2-digit",
+        hour12: false,
       });
-      document.getElementById("sunset-time")!.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-US", {
+      document.getElementById("sunset-time")!.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-GB", {
         hour: "2-digit",
         minute: "2-digit",
+        hour12: false,
       });
 
       updateForecast(forecastData);
