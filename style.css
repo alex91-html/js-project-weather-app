@@ -1,15 +1,14 @@
-/* *,
+*,
 html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-} */
+}
 
 
 body {
   font-family: roboto;
-  padding: 0px;
-  margin: 0;
+
 }
 
 main {
@@ -35,10 +34,14 @@ main {
 
 /*clip-path?*/
 .current-weather {
-  border-radius: 0 0 50% 50%;
+  /* border-radius: 0 0 50% 50%; */
   background: linear-gradient(#8589FF, #E8E9FF);
   color: white;
 
+}
+
+.content {
+  padding: 30px;
 }
 
 h1 {
