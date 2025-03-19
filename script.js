@@ -48,25 +48,33 @@ var API_KEY = "f70fe821b1e9718ced63c3a6bf1070e4";
 document.addEventListener("DOMContentLoaded", function () {
     var searchInput = document.getElementById("searchCity");
     var searchButton = document.getElementById("searchButton");
+    // Mapping OpenWeather conditions to local images
+    var weatherIcons = {
+        "Clear": "./assets/Sun.svg",
+        "Clouds": "./assets/bad_weather.svg",
+        "Broken Clouds": "./assets/cloud.svg",
+        "Night": "./assets/night.svg",
+    };
     var getWeather = function () {
         var args_1 = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             args_1[_i] = arguments[_i];
         }
         return __awaiter(_this, __spreadArray([], args_1, true), void 0, function (city) {
-            var currentWeatherURL, forecastURL, weatherResponse, weatherData, forecastResponse, forecastData, sunriseTime, sunsetTime, error_1;
+            var currentWeatherURL, forecastURL, weatherResponse, weatherData, forecastResponse, forecastData, error_1;
             if (city === void 0) { city = "Stockholm"; }
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 5, , 6]);
+                        console.log("Fetching weather data for ".concat(city, "..."));
                         currentWeatherURL = "https://api.openweathermap.org/data/2.5/weather?q=".concat(city, "&units=metric&appid=").concat(API_KEY);
                         forecastURL = "https://api.openweathermap.org/data/2.5/forecast?q=".concat(city, "&units=metric&appid=").concat(API_KEY);
                         return [4 /*yield*/, fetch(currentWeatherURL)];
                     case 1:
                         weatherResponse = _a.sent();
                         if (!weatherResponse.ok)
-                            throw new Error("Weather data not available");
+                            throw new Error("Weather data not available (".concat(weatherResponse.status, ")"));
                         return [4 /*yield*/, weatherResponse.json()];
                     case 2:
                         weatherData = _a.sent();
@@ -74,24 +82,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     case 3:
                         forecastResponse = _a.sent();
                         if (!forecastResponse.ok)
-                            throw new Error("Forecast data not available");
+                            throw new Error("Forecast data not available (".concat(forecastResponse.status, ")"));
                         return [4 /*yield*/, forecastResponse.json()];
                     case 4:
                         forecastData = _a.sent();
-                        // Update current weather UI
                         document.getElementById("temperature").textContent = "".concat(weatherData.main.temp, "\u00B0C");
                         document.getElementById("city").textContent = weatherData.name;
                         document.getElementById("weather-condition").textContent = weatherData.weather[0].description;
-                        sunriseTime = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString();
-                        sunsetTime = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString();
-                        document.getElementById("sunrise-time").textContent = sunriseTime;
-                        document.getElementById("sunset-time").textContent = sunsetTime;
-                        // Update forecast UI
                         updateForecast(forecastData);
                         return [3 /*break*/, 6];
                     case 5:
                         error_1 = _a.sent();
                         console.error("Error fetching weather:", error_1);
+                        document.getElementById("city").textContent = "Unable to fetch weather!";
                         return [3 /*break*/, 6];
                     case 6: return [2 /*return*/];
                 }
@@ -105,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
         forecastDays.innerHTML = "";
         forecastIcons.innerHTML = "";
         forecastTemps.innerHTML = "";
-        // Filter forecast data to get one entry per day (at midday)
         var dailyForecast = forecastData.list.filter(function (entry) {
             return entry.dt_txt.includes("12:00:00");
         });
@@ -115,22 +117,21 @@ document.addEventListener("DOMContentLoaded", function () {
             dayElement.className = "day";
             dayElement.textContent = date;
             forecastDays.appendChild(dayElement);
-            var iconElement = document.createElement("div");
+            var iconElement = document.createElement("img");
             iconElement.className = "week-icon";
-            iconElement.textContent = day.weather[0].description;
+            iconElement.src = weatherIcons[day.weather[0].main] || "./assets/Sun.svg"; // Default icon
             forecastIcons.appendChild(iconElement);
             var tempElement = document.createElement("div");
             tempElement.className = "temp";
             tempElement.textContent = "".concat(Math.round(day.main.temp_max), "\u00B0C / ").concat(Math.round(day.main.temp_min), "\u00B0C");
             forecastTemps.appendChild(tempElement);
         });
+        console.log("Forecast updated successfully.");
     };
-    // Search button functionality
     searchButton.addEventListener("click", function () {
         var city = searchInput.value.trim();
         if (city)
             getWeather(city);
     });
-    // Load weather for default city
     getWeather();
 });
