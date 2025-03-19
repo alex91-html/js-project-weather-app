@@ -86,9 +86,18 @@ document.addEventListener("DOMContentLoaded", function () {
                         return [4 /*yield*/, forecastResponse.json()];
                     case 4:
                         forecastData = _a.sent();
-                        document.getElementById("temperature").textContent = "".concat(weatherData.main.temp, "\u00B0C");
+                        document.getElementById("temperature").textContent = "".concat(Math.round(weatherData.main.temp), "\u00B0C");
                         document.getElementById("city").textContent = weatherData.name;
                         document.getElementById("weather-condition").textContent = weatherData.weather[0].description;
+                        // Update sunrise and sunset times
+                        document.getElementById("sunrise-time").textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        });
+                        document.getElementById("sunset-time").textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        });
                         updateForecast(forecastData);
                         return [3 /*break*/, 6];
                     case 5:

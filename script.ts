@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!forecastResponse.ok) throw new Error(`Forecast data not available (${forecastResponse.status})`);
       const forecastData: ForecastData = await forecastResponse.json();
 
-      document.getElementById("temperature")!.textContent = `${weatherData.main.temp}°C`;
+      document.getElementById("temperature")!.textContent = `${Math.round(weatherData.main.temp)}°C`;
       document.getElementById("city")!.textContent = weatherData.name;
       document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
 
@@ -72,8 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
         hour: "2-digit",
         minute: "2-digit",
       });
-      document.getElementById("sunrise-time")!.textContent = sunrise;
-      document.getElementById("sunset-time")!.textContent = sunset;
 
       updateForecast(forecastData);
     } catch (error) {
