@@ -11,80 +11,64 @@
     rel="stylesheet"
     href="./style.css"
   >
-  <title>Weather app</title>
+  <title>Weather App</title>
 </head>
 
 <body>
   <main>
     <section class="container">
-      <!-- current weather -->
+      <!-- Current Weather -->
       <section class="current-weather">
-        <nav>
-          <input
-            type="search"
-            class="search"
-          >
-        </nav>
-        <!-- temperature -->
-        <h1>45
-        </h1>
-        <!-- city -->
-        <h2>
-          Stockholm
-        </h2>
-        <p>
-          <!--weathercondition -->
-        </p>
-        <section class="sunrise-sunset">
-          <div class="sunrise">
-            <p>Sunrise</p>
-            <p>22.30</p>
-          </div>
-          <div class="sunset">
-            <p>Sunset</p>
-            <p>00.00</p>
-          </div>
-        </section>
+        <div class="content">
+          <nav>
+            <input
+              type="search"
+              class="search"
+              id="searchCity"
+              placeholder="Enter city"
+            >
+            <button id="searchButton">Search</button>
+          </nav>
+          <!-- Temperature -->
+          <h1 id="temperature">--°C</h1>
+          <!-- City -->
+          <h2 id="city">Loading...</h2>
+          <!-- Weather Condition -->
+          <p id="weather-condition">--</p>
+          <section class="sunrise-sunset">
+            <div class="sunrise">
+              <p>Sunrise</p>
+              <p id="sunrise-time">--:--</p>
+            </div>
+            <div class="sunset">
+              <p>Sunset</p>
+              <p id="sunset-time">--:--</p>
+            </div>
+          </section>
+        </div>
       </section>
-      <!-- weather forecast -->
-      <div class="button-container">
-        <button class="round-button">></button>
-      </div>
 
+      <!-- Weather Forecast -->
       <section class="weather-forecast">
-        <div class="days-column">
-          <div class="day">Monday</div>
-          <div class="day">Tuesday</div>
-          <div class="day">Wednesday</div>
-          <div class="day">Thursday</div>
-          <div class="day">Friday</div>
-          <div class="day">Saturday</div>
-          <div class="day">Sunday</div>
-        </div>
-        <div class="icons-column">
-          <div class="week-icon">@</div>
-          <div class="week-icon">@</div>
-          <div class="week-icon">@</div>
-          <div class="week-icon">@</div>
-          <div class="week-icon">@</div>
-          <div class="week-icon">@</div>
-          <div class="week-icon">@</div>
-        </div>
-        <div class="temps-column">
-          <div class="temp">25°C</div>
-          <div class="temp">22°C</div>
-          <div class="temp">28°C</div>
-          <div class="temp">24°C</div>
-          <div class="temp">26°C</div>
-          <div class="temp">23°C</div>
-          <div class="temp">27°C</div>
-        </div>
+        <div
+          class="days-column"
+          id="forecast-days"
+        ></div>
+        <div
+          class="icons-column"
+          id="forecast-icons"
+        ></div>
+        <div
+          class="temps-column"
+          id="forecast-temps"
+        ></div>
       </section>
-
+    </section>
   </main>
+
   <script
     defer
-    src="script.js"
+    src="./script.js"
   ></script>
 </body>
 
