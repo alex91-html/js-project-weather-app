@@ -1,11 +1,10 @@
 *,
-*,
 html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-}
+
 
 
 body {
@@ -13,6 +12,7 @@ body {
   font-style: normal;
   font-weight: 300;
   background-color: lightgrey;
+  overflow: hidden;
 }
 
 
@@ -20,12 +20,12 @@ body {
   background-color: #FFFFFF;
   width: 100%;
   max-width: 500px;
+  height: 100vh;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 800px;
 }
 
 .atmosphere {
@@ -51,37 +51,38 @@ main {
 }
 
 
-.bacground {
+.background {
   background: linear-gradient(#8589FF, #E8E9FF);
   height: 800px;
   width: 800px;
 }
 
 .current-weather {
-  /* border-radius: 0 0 50% 50%; */
-  background: linear-gradient(#8589FF, #E8E9FF);
   color: white;
   max-width: 100%;
   padding: 20px;
-  background-color: orange;
-  /*temporary color*/
+  height: 350px;
+  clip-path: ellipse(92% 75% at 50% 25%);
+  background: linear-gradient(#8589FF, #E8E9FF)
 }
+
 
 .weather-forecast {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+  max-height: 568px;
   gap: 10px;
   width: 100%;
-  height: 100%;
+  height: 500px;
   padding: 20px;
 
 }
 
-.content {
+/* .content {
   padding: 30px;
-}
+} */
 
 h1 {
   font-size: 120px;
@@ -101,14 +102,14 @@ h2 {
 }
 
 .sunrise {
-  font-size: 22px;
+  font-size: 18px;
   display: flex;
   flex-direction: row;
   gap: 22px;
 }
 
 .sunset {
-  font-size: 22px;
+  font-size: 18px;
   display: flex;
   flex-direction: row;
   gap: 22px;
@@ -126,15 +127,18 @@ h2 {
 
 .button-container {
   display: flex;
-  justify-content: flex-end; 
-  padding: 20px; 
+  padding: 20px;
+  position: absolute;
+  z-index: 5;
+  top: 250px;
+  right: 0;
 }
 
 .round-button {
   background-color: #757AFF;
   color: white;
-  width: 150px;
-  height: 150px;
+  width: 80px;
+  height: 80px;
   padding: 10px 20px;
   border: none;
   border-radius: 50%;
@@ -149,13 +153,13 @@ h2 {
 
 
 
-#weather-container {
+/* #weather-container {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 230px;
   margin-top: 20px;
-}
+} */
 
 .days-column,
 .temps-column,
@@ -163,6 +167,7 @@ h2 {
   display: flex;
   flex-direction: column;
   text-align: left;
+
 }
 
 .day,
@@ -187,5 +192,6 @@ h2 {
     width: 100%;
     max-width: 400px;
     margin: 50px auto;
+    height: 800px;
   }
 }

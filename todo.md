@@ -7,6 +7,12 @@ $ git commit -m “write here what changed”
 $ git push
 
 
+#### Wednesday agenda
+1) Iphone 5 - fix responsiveness 
+2) icons
+3) Fix the button so its an arrow instead of text
+4)
+
 -------------------------------------------
 
 #### TO DO
@@ -21,12 +27,12 @@ $ git push
 - [x] nav bar
 - [x] main element
 - [x] inside the main, creating div
-- [] make a button <!-- Selin -->
+- [x] make a button <!-- Selin -->
 
 #### css
 - [] adjust the padding/margin for the text layouts <!-- Sofia -->
-- [] btn style <!-- Selin -->
-- [] the bow thing <!-- Oscar -->
+- [/] btn style <!-- Selin -->
+- [x] the bow thing <!-- Oscar -->
 
 #### TYPESCRIPT / JS
 - [] API
@@ -38,11 +44,11 @@ $ git push
 -------------------------------------------
 
 #### Selin
-- [] make a button
-- [] btn style
+- [x] make a button
+- [/] btn style
 
 #### Oscar
-- [] the bow thing
+- [x] the bow thing
 
 #### Alex
 - [x] make it mobile first
