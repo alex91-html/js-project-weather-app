@@ -1,42 +1,81 @@
 *,
+*,
 html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+}
 
 
 body {
-  font-family: roboto;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  background-color: lightgrey;
+}
 
+
+.container {
+  background-color: #FFFFFF;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 800px;
+}
+
+.atmosphere {
+  background: linear-gradient(#8589FF, #E8E9FF);
+  height: 800px;
+  width: 800px;
+  border-radius: 50%;
+  position: absolute;
+  right: 50%;
+  transform: translate(50%);
+  z-index: 0;
+}
+
+.navigation {
+  padding: 20px;
 }
 
 main {
   width: 100%;
-  height: 500px;
-  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/*
-.color-box {
-  border-radius: 100%;
-  overflow: hidden;
-  height: 736px;
-  width: 844px;
-  position: fixed;
-  z-index: -1;
+
+.bacground {
   background: linear-gradient(#8589FF, #E8E9FF);
-  left: -211px;
-  top: -150px;
-
+  height: 800px;
+  width: 800px;
 }
-  */
 
-/*clip-path?*/
 .current-weather {
   /* border-radius: 0 0 50% 50%; */
   background: linear-gradient(#8589FF, #E8E9FF);
   color: white;
+  max-width: 100%;
+  padding: 20px;
+  background-color: orange;
+  /*temporary color*/
+}
+
+.weather-forecast {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
 
 }
 
@@ -53,20 +92,15 @@ h2 {
   font-size: 34px;
 }
 
-p {
-  font-size: 22px;
-
-}
 
 .sunrise-sunset {
   display: flex;
   flex-direction: row;
-  gap: 38px;
-  padding: 10px;
+  gap: 30px;
+  font-size: 22px;
 }
 
 .sunrise {
-
   font-size: 22px;
   display: flex;
   flex-direction: row;
@@ -74,7 +108,6 @@ p {
 }
 
 .sunset {
-
   font-size: 22px;
   display: flex;
   flex-direction: row;
@@ -135,7 +168,6 @@ p {
 .day,
 .temp,
 .week-icon {
-  padding: 10px;
   font-size: 20px;
   border-bottom: 1px solid #ddd;
 }
@@ -143,4 +175,17 @@ p {
 .temp {
   text-align: right;
 
+}
+
+
+@media (min-width: 350px) {}
+
+
+@media (min-width: 500px) {
+  .container {
+    box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+  }
 }

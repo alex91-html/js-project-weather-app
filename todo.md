@@ -1,9 +1,12 @@
 #### Notes
 - !! don't forget to git pull before coding
-- 
 
 
--------------------------------------------
+$ git add .
+$ git commit -m “write here what changed”
+$ git push
+
+
 -------------------------------------------
 
 #### TO DO
@@ -33,7 +36,6 @@
 - [] write the funtions for weather images.
 
 -------------------------------------------
--------------------------------------------
 
 #### Selin
 - [] make a button
@@ -43,14 +45,13 @@
 - [] the bow thing
 
 #### Alex
-- [] make it mobile first
+- [x] make it mobile first
 - [] Api link
 
 
 #### Sofia
-- [] adjust the padding/margin for the text layouts
+- [x] adjust the padding/margin for the text layouts
 
--------------------------------------------
 -------------------------------------------
 
 #### Schedule 
