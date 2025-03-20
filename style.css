@@ -198,6 +198,11 @@ nav {
   transition: background-color 0.3s ease;
 }
 
+.my-location {
+  /* to make the icon whhite: */
+  filter: invert(100%) brightness(2000%);
+}
+
 .round-button:hover {
   background-color: darkblue;
 }
