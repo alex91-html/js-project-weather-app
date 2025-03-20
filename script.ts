@@ -172,6 +172,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update the UI with the received weather data
         document.getElementById("temperature")!.innerHTML = `${Math.round(weatherData.main.temp)}<span class="degree-symbol">°C</span>`;
+
+        //<h1 class="big-temp">${Math.round(weatherData.main.temp)}<sup class="big-temp-degrees">°C</sup></h1>
+
         document.getElementById("city")!.textContent = weatherData.name;
         document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
 

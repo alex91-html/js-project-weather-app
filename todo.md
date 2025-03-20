@@ -3,6 +3,8 @@
 
 tsc script.ts
 
+only TSC!!!!
+
 #### Wednesday agenda
 - [x] Iphone 5 - fix responsiveness 
 - [/] icons
