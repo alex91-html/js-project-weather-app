@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Clouds": "./assets/bad_weather.svg",
     "Broken Clouds": "./assets/cloud.svg",
     "Night": "./assets/night.svg",
-  };
+  }; //local  asssets
 
   // Interface for the current weather data
   interface WeatherData {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     list: ForecastEntry[];
   }
 
-  const getWeather = async (city: string = "Stockholm"): Promise<void> => {
+  const getWeather = async (city: string = "Stockholm"): Promise<void> => { //all promise types through errors, typescript upset that function doesn't return anything
     try {
       console.log(`Fetching weather data for ${city}...`);
 
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       entry.dt_txt.includes("12:00:00")
     );
 
-    dailyForecast.slice(0, 4).forEach((day: ForecastEntry) => {
+    dailyForecast.slice(0, 7).forEach((day: ForecastEntry) => { //gathers data for seven days
       const date: string = new Date(day.dt_txt).toLocaleDateString("en-GB", { weekday: "long" });
 
       const dayElement = document.createElement("div");
@@ -142,9 +142,76 @@ document.addEventListener("DOMContentLoaded", () => {
   getWeather();
 
 
-  //buttons
 
 
+  //functions for getting current coordinates and displaying according weather and forecast
+  const getWeatherByCoordinates = async (): Promise<void> => {
+    if (!navigator.geolocation) {
+      console.error("Geolocation is not supported by this browser.");
+      document.getElementById("city")!.textContent = "Geolocation not supported!";
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      try {
+        const { latitude, longitude } = position.coords;
+        console.log(`Fetching weather for coordinates: ${latitude}, ${longitude}...`);
+
+        const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
+        const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
+
+        const weatherResponse: Response = await fetch(currentWeatherURL);
+        if (!weatherResponse.ok) throw new Error(`Weather data not available (${weatherResponse.status})`);
+        const weatherData: WeatherData = await weatherResponse.json();
+
+        const forecastResponse: Response = await fetch(forecastURL);
+        if (!forecastResponse.ok) throw new Error(`Forecast data not available (${forecastResponse.status})`);
+        const forecastData: ForecastData = await forecastResponse.json();
+
+        // Update the UI with the received weather data
+        document.getElementById("temperature")!.textContent = `${Math.round(weatherData.main.temp)}°C`;
+        document.getElementById("city")!.textContent = weatherData.name;
+        document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
+
+        const weatherCondition = weatherData.weather[0].main;
+        const weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg";
+
+        const weatherImgElement = document.createElement("img");
+        weatherImgElement.src = weatherImage;
+        weatherImgElement.alt = weatherCondition;
+        weatherImgElement.className = "weather-icon";
+
+        const currentWeatherDiv = document.getElementById("current-weather")!;
+        currentWeatherDiv.innerHTML = "";
+        currentWeatherDiv.appendChild(weatherImgElement);
+
+        // Update sunrise and sunset times
+        document.getElementById("sunrise-time")!.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+
+        document.getElementById("sunset-time")!.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        });
+
+        updateForecast(forecastData);
+      } catch (error) {
+        console.error("Error fetching weather:", error);
+        document.getElementById("city")!.textContent = "Unable to fetch weather!";
+      }
+    }, (error) => {
+      console.error("Error getting location:", error);
+      document.getElementById("city")!.textContent = "Location permission denied!";
+    });
+  };
+
+
+  const coordinatesButton = document.getElementById("coordinates") as HTMLButtonElement;
+  coordinatesButton.addEventListener("click", getWeatherByCoordinates);
 
 
 

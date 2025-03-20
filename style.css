@@ -316,4 +316,14 @@ nav {
   img {
     height: 55px;
   }
+
+  .weather-forecast {
+    align-items: flex-start;
+    justify-content: space-around;
+    max-height: 568px;
+    gap: 0px;
+    width: 100%;
+    padding: 20px;
+  }
+
 }

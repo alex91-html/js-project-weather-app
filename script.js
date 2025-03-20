@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Clouds": "./assets/bad_weather.svg",
         "Broken Clouds": "./assets/cloud.svg",
         "Night": "./assets/night.svg",
-    };
+    }; //local  asssets
     var getWeather = function () {
         var args_1 = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -131,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
         var dailyForecast = forecastData.list.filter(function (entry) {
             return entry.dt_txt.includes("12:00:00");
         });
-        dailyForecast.slice(0, 4).forEach(function (day) {
-            var date = new Date(day.dt_txt).toLocaleDateString("en-US", { weekday: "long" });
+        dailyForecast.slice(0, 7).forEach(function (day) {
+            var date = new Date(day.dt_txt).toLocaleDateString("en-GB", { weekday: "long" });
             var dayElement = document.createElement("div");
             dayElement.className = "day";
             dayElement.textContent = date;
@@ -154,4 +154,82 @@ document.addEventListener("DOMContentLoaded", function () {
             getWeather(city);
     });
     getWeather();
+    //buttons
+    var getWeatherByCoordinates = function () { return __awaiter(_this, void 0, void 0, function () {
+        var _this = this;
+        return __generator(this, function (_a) {
+            if (!navigator.geolocation) {
+                console.error("Geolocation is not supported by this browser.");
+                document.getElementById("city").textContent = "Geolocation not supported!";
+                return [2 /*return*/];
+            }
+            navigator.geolocation.getCurrentPosition(function (position) { return __awaiter(_this, void 0, void 0, function () {
+                var _a, latitude, longitude, currentWeatherURL, forecastURL, weatherResponse, weatherData, forecastResponse, forecastData, weatherCondition, weatherImage, weatherImgElement, currentWeatherDiv, error_2;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _b.trys.push([0, 5, , 6]);
+                            _a = position.coords, latitude = _a.latitude, longitude = _a.longitude;
+                            console.log("Fetching weather for coordinates: ".concat(latitude, ", ").concat(longitude, "..."));
+                            currentWeatherURL = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(latitude, "&lon=").concat(longitude, "&units=metric&appid=").concat(API_KEY);
+                            forecastURL = "https://api.openweathermap.org/data/2.5/forecast?lat=".concat(latitude, "&lon=").concat(longitude, "&units=metric&appid=").concat(API_KEY);
+                            return [4 /*yield*/, fetch(currentWeatherURL)];
+                        case 1:
+                            weatherResponse = _b.sent();
+                            if (!weatherResponse.ok)
+                                throw new Error("Weather data not available (".concat(weatherResponse.status, ")"));
+                            return [4 /*yield*/, weatherResponse.json()];
+                        case 2:
+                            weatherData = _b.sent();
+                            return [4 /*yield*/, fetch(forecastURL)];
+                        case 3:
+                            forecastResponse = _b.sent();
+                            if (!forecastResponse.ok)
+                                throw new Error("Forecast data not available (".concat(forecastResponse.status, ")"));
+                            return [4 /*yield*/, forecastResponse.json()];
+                        case 4:
+                            forecastData = _b.sent();
+                            // Update the UI with the received weather data
+                            document.getElementById("temperature").textContent = "".concat(Math.round(weatherData.main.temp), "\u00B0C");
+                            document.getElementById("city").textContent = weatherData.name;
+                            document.getElementById("weather-condition").textContent = weatherData.weather[0].description;
+                            weatherCondition = weatherData.weather[0].main;
+                            weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg";
+                            weatherImgElement = document.createElement("img");
+                            weatherImgElement.src = weatherImage;
+                            weatherImgElement.alt = weatherCondition;
+                            weatherImgElement.className = "weather-icon";
+                            currentWeatherDiv = document.getElementById("current-weather");
+                            currentWeatherDiv.innerHTML = "";
+                            currentWeatherDiv.appendChild(weatherImgElement);
+                            // Update sunrise and sunset times
+                            document.getElementById("sunrise-time").textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-GB", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: false,
+                            });
+                            document.getElementById("sunset-time").textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-GB", {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                hour12: false,
+                            });
+                            updateForecast(forecastData);
+                            return [3 /*break*/, 6];
+                        case 5:
+                            error_2 = _b.sent();
+                            console.error("Error fetching weather:", error_2);
+                            document.getElementById("city").textContent = "Unable to fetch weather!";
+                            return [3 /*break*/, 6];
+                        case 6: return [2 /*return*/];
+                    }
+                });
+            }); }, function (error) {
+                console.error("Error getting location:", error);
+                document.getElementById("city").textContent = "Location permission denied!";
+            });
+            return [2 /*return*/];
+        });
+    }); };
+    var coordinatesButton = document.getElementById("coordinates");
+    coordinatesButton.addEventListener("click", getWeatherByCoordinates);
 });
