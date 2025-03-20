@@ -11,8 +11,8 @@ body {
   font-style: normal;
   font-weight: 100;
   background-color: lightgrey;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
   align-items: center;
   min-height: 100vh;
 }
@@ -25,17 +25,13 @@ img {
 .container {
   background-color: #FFFFFF;
   width: 100%;
-  max-width: 500px;
-  height: 800px;
-  margin: 0 auto;
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
 /* Atmospheric background */
-.atmosphere {
+/* .atmosphere {
   background: linear-gradient(#8589FF, #E8E9FF);
   height: 800px;
   width: 800px;
@@ -44,7 +40,7 @@ img {
   right: 50%;
   transform: translate(50%);
   z-index: 0;
-}
+} */
 
 /* Navigation */
 .navigation {
@@ -110,7 +106,7 @@ img {
   max-height: 568px;
   gap: 10px;
   width: 100%;
-  height: 500px;
+  /* height: 500px; */
   padding: 20px;
 }
 
@@ -196,11 +192,16 @@ nav {
 
 /* Responsive Design */
 @media (min-width: 500px) {
+
+  body {
+    justify-content: center;
+  }
+
   .container {
     box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 400px;
+    width: 414px;
     margin: 50px auto;
-    height: 800px;
+    height: 896px;
   }
 }
