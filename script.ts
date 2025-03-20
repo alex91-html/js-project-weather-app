@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchCity") as HTMLInputElement;
   const searchButton = document.getElementById("searchButton") as HTMLButtonElement;
 
-  // Mapping OpenWeather conditions to local images
+  // Defining Weather Icons
   const weatherIcons: { [key: string]: string } = {
     "Clear": "./assets/Sun.svg",
     "Clouds": "./assets/bad_weather.svg",
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Night": "./assets/night.svg",
   }; //local  asssets
 
-  // Interface for the current weather data
+  // Defining Data Interfaces
   interface WeatherData {
     main: {
       temp: number;
@@ -44,10 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
     list: ForecastEntry[];
   }
 
+  // Fetching and Displaying Weather Data
   const getWeather = async (city: string = "Stockholm"): Promise<void> => { //all promise types through errors, typescript upset that function doesn't return anything
     try {
       console.log(`Fetching weather data for ${city}...`);
 
+      // Fetching Current  and forecast Weather Data
       const currentWeatherURL: string = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
       const forecastURL: string = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${API_KEY}`;
 
@@ -59,13 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!forecastResponse.ok) throw new Error(`Forecast data not available (${forecastResponse.status})`);
       const forecastData: ForecastData = await forecastResponse.json();
 
-
+      // Update the UI with the received weather data
       document.getElementById("temperature")!.innerHTML = `${Math.round(weatherData.main.temp)}<span class="degree-symbol">°C</span>`;
       document.getElementById("city")!.textContent = weatherData.name;
       document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
 
 
-
+      // Display Weather Icon
       const weatherCondition = weatherData.weather[0].main; // Get main weather condition
       const weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg"; // Default to Sun.svg
 
