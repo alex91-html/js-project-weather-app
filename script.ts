@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     dailyForecast.slice(0, 4).forEach((day: ForecastEntry) => {
-      const date: string = new Date(day.dt_txt).toLocaleDateString("en-US", { weekday: "long" });
+      const date: string = new Date(day.dt_txt).toLocaleDateString("en-GB", { weekday: "long" });
 
       const dayElement = document.createElement("div");
       dayElement.className = "day";
@@ -140,4 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   getWeather();
+
+
+  //buttons
+
+
+
+
+
 });
