@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sunrise: number;
       sunset: number;
     };
+    timezone: number;
   }
 
   // Interface for forecast data
@@ -69,7 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Display Weather Icon
       const weatherCondition = weatherData.weather[0].main; // Get main weather condition
-      const weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg"; // Default to Sun.svg
+      let weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg"; // Default to Sun.svg
+
+      const currentTime = new Date().getTime() / 1000; // Convert to seconds
+      if (currentTime < weatherData.sys.sunrise || currentTime > weatherData.sys.sunset) {
+        weatherImage = weatherIcons["Night"] || weatherImage;
+      }
 
       const weatherImgElement = document.createElement("img"); // Create image element
       weatherImgElement.src = weatherImage;
@@ -80,19 +86,22 @@ document.addEventListener("DOMContentLoaded", () => {
       currentWeatherDiv.innerHTML = ""; // Clear existing content
       currentWeatherDiv.appendChild(weatherImgElement);
 
+      const timezoneOffset = weatherData.timezone; // Offset in seconds from UTC
+      const sunriseTime = new Date((weatherData.sys.sunrise + timezoneOffset) * 1000);
+      const sunsetTime = new Date((weatherData.sys.sunset + timezoneOffset) * 1000);
 
+      document.getElementById("sunrise-time")!.textContent = sunriseTime.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
 
+      document.getElementById("sunset-time")!.textContent = sunsetTime.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
       // Update sunrise and sunset times
-      document.getElementById("sunrise-time")!.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
-      document.getElementById("sunset-time")!.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
 
       updateForecast(forecastData);
     } catch (error) {
@@ -190,18 +199,24 @@ document.addEventListener("DOMContentLoaded", () => {
         currentWeatherDiv.innerHTML = "";
         currentWeatherDiv.appendChild(weatherImgElement);
 
-        // Update sunrise and sunset times
-        document.getElementById("sunrise-time")!.textContent = new Date(weatherData.sys.sunrise * 1000).toLocaleTimeString("en-GB", {
+
+        const timezoneOffset = weatherData.timezone; // Offset in seconds from UTC
+        const sunriseTime = new Date((weatherData.sys.sunrise + timezoneOffset) * 1000);
+        const sunsetTime = new Date((weatherData.sys.sunset + timezoneOffset) * 1000);
+
+        document.getElementById("sunrise-time")!.textContent = sunriseTime.toLocaleTimeString("en-GB", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
         });
 
-        document.getElementById("sunset-time")!.textContent = new Date(weatherData.sys.sunset * 1000).toLocaleTimeString("en-GB", {
+        document.getElementById("sunset-time")!.textContent = sunsetTime.toLocaleTimeString("en-GB", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false,
         });
+        // Update sunrise and sunset times
+        // Update sunrise and sunset times
 
         updateForecast(forecastData);
       } catch (error) {

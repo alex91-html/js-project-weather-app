@@ -10,12 +10,6 @@ html {
 }
 
 body {
-  /* font-family: 'Roboto', sans-serif;
-  font-style: normal; */
-  /* font-weight: 100; */
-  /* background-color: lightgrey; */
-  /* display: flex; */
-  /* justify-content: center; */
   align-items: center;
   min-height: 100vh;
 }
@@ -32,18 +26,6 @@ img {
   display: flex;
   flex-direction: column;
 }
-
-/* Atmospheric background */
-/* .atmosphere {
-  background: linear-gradient(#8589FF, #E8E9FF);
-  height: 800px;
-  width: 800px;
-  border-radius: 50%;
-  position: absolute;
-  right: 50%;
-  transform: translate(50%);
-  z-index: 0;
-} */
 
 /* Navigation */
 .navigation {
@@ -79,17 +61,6 @@ img {
   object-fit: contain;
   position: absolute;
 }
-
-/*
-.weather-icon {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  position: absolute;
-  right: 20px;
-  top: 100px;
-}
-  */
 
 #temperature {
   font-size: 90px;
@@ -230,14 +201,6 @@ nav {
   body {
     justify-content: center;
   }
-
-  /* .container {
-    box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.3);
-    width: 100%;
-    width: 414px;
-    margin: 50px auto;
-    height: 896px;
-  } */
 
   nav {
     margin-bottom: 100px;
