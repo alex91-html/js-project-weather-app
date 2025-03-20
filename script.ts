@@ -45,6 +45,38 @@ document.addEventListener("DOMContentLoaded", () => {
     list: ForecastEntry[];
   }
 
+  const updateWeatherUI = (weatherData: WeatherData, forecastData: ForecastData) => {
+    document.getElementById("temperature")!.innerHTML = `${Math.round(weatherData.main.temp)}<span class="degree-symbol">°C</span>`;
+    document.getElementById("city")!.textContent = weatherData.name;
+    document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
+
+    const weatherCondition = weatherData.weather[0].main;
+    let weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg";
+
+    const currentTime = new Date().getTime() / 1000;
+    if (currentTime < weatherData.sys.sunrise || currentTime > weatherData.sys.sunset) {
+      weatherImage = weatherIcons["Night"] || weatherImage;
+    }
+
+    const weatherImgElement = document.createElement("img");
+    weatherImgElement.src = weatherImage;
+    weatherImgElement.alt = weatherCondition;
+    weatherImgElement.className = "weather-icon";
+
+    const currentWeatherDiv = document.getElementById("current-weather")!;
+    currentWeatherDiv.innerHTML = "";
+    currentWeatherDiv.appendChild(weatherImgElement);
+
+    const timezoneOffset = weatherData.timezone;
+    document.getElementById("sunrise-time")!.textContent = new Date((weatherData.sys.sunrise + timezoneOffset) * 1000)
+      .toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+
+    document.getElementById("sunset-time")!.textContent = new Date((weatherData.sys.sunset + timezoneOffset) * 1000)
+      .toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false });
+
+    updateForecast(forecastData);
+  };
+
   // Fetching and Displaying Weather Data
   const getWeather = async (city: string = "Stockholm"): Promise<void> => { //all promise types through errors, typescript upset that function doesn't return anything
     try {
@@ -62,48 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!forecastResponse.ok) throw new Error(`Forecast data not available (${forecastResponse.status})`);
       const forecastData: ForecastData = await forecastResponse.json();
 
-      // Update the UI with the received weather data
-      document.getElementById("temperature")!.innerHTML = `${Math.round(weatherData.main.temp)}<span class="degree-symbol">°C</span>`;
-      document.getElementById("city")!.textContent = weatherData.name;
-      document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
-
-
-      // Display Weather Icon
-      const weatherCondition = weatherData.weather[0].main; // Get main weather condition
-      let weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg"; // Default to Sun.svg
-
-      const currentTime = new Date().getTime() / 1000; // Convert to seconds
-      if (currentTime < weatherData.sys.sunrise || currentTime > weatherData.sys.sunset) {
-        weatherImage = weatherIcons["Night"] || weatherImage;
-      }
-
-      const weatherImgElement = document.createElement("img"); // Create image element
-      weatherImgElement.src = weatherImage;
-      weatherImgElement.alt = weatherCondition;
-      weatherImgElement.className = "weather-icon"; // Add a class for styling
-
-      const currentWeatherDiv = document.getElementById("current-weather")!;
-      currentWeatherDiv.innerHTML = ""; // Clear existing content
-      currentWeatherDiv.appendChild(weatherImgElement);
-
-      const timezoneOffset = weatherData.timezone; // Offset in seconds from UTC
-      const sunriseTime = new Date((weatherData.sys.sunrise + timezoneOffset) * 1000);
-      const sunsetTime = new Date((weatherData.sys.sunset + timezoneOffset) * 1000);
-
-      document.getElementById("sunrise-time")!.textContent = sunriseTime.toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
-
-      document.getElementById("sunset-time")!.textContent = sunsetTime.toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
-      // Update sunrise and sunset times
-
-      updateForecast(forecastData);
+      updateWeatherUI(weatherData, forecastData);
     } catch (error) {
       console.error("Error fetching weather:", error);
       document.getElementById("city")!.textContent = "Unable to fetch weather!";
@@ -119,26 +110,41 @@ document.addEventListener("DOMContentLoaded", () => {
     forecastIcons.innerHTML = "";
     forecastTemps.innerHTML = "";
 
-    const dailyForecast: ForecastEntry[] = forecastData.list.filter((entry: ForecastEntry) =>
-      entry.dt_txt.includes("12:00:00")
-    );
+    // Group forecast entries by date
+    const dailyForecast: { [date: string]: { high: number, low: number, icon: string } } = {};
 
-    dailyForecast.slice(0, 7).forEach((day: ForecastEntry) => { //gathers data for seven days
-      const date: string = new Date(day.dt_txt).toLocaleDateString("en-GB", { weekday: "long" });
+    forecastData.list.forEach((entry) => {
+      const date = entry.dt_txt.split(" ")[0]; // Extract YYYY-MM-DD
+
+      if (!dailyForecast[date]) {
+        dailyForecast[date] = {
+          high: entry.main.temp_max,
+          low: entry.main.temp_min,
+          icon: entry.weather[0].main,
+        };
+      } else {
+        dailyForecast[date].high = Math.max(dailyForecast[date].high, entry.main.temp_max);
+        dailyForecast[date].low = Math.min(dailyForecast[date].low, entry.main.temp_min);
+      }
+    });
+
+    // Display forecast for the next 7 days
+    Object.entries(dailyForecast).slice(0, 7).forEach(([date, data]) => {
+      const dayName = new Date(date).toLocaleDateString("en-GB", { weekday: "long" });
 
       const dayElement = document.createElement("div");
       dayElement.className = "day";
-      dayElement.textContent = date;
+      dayElement.textContent = dayName;
       forecastDays.appendChild(dayElement);
 
       const iconElement = document.createElement("img");
       iconElement.className = "week-icon";
-      iconElement.src = weatherIcons[day.weather[0].main] || "./assets/Sun.svg"; // Default icon
+      iconElement.src = weatherIcons[data.icon] || "./assets/Sun.svg"; // Default icon
       forecastIcons.appendChild(iconElement);
 
       const tempElement = document.createElement("div");
       tempElement.className = "temp";
-      tempElement.textContent = `${Math.round(day.main.temp_max)}°C / ${Math.round(day.main.temp_min)}°C`;
+      tempElement.textContent = `${Math.round(data.high)}°C / ${Math.round(data.low)}°C`;
       forecastTemps.appendChild(tempElement);
     });
 
@@ -179,46 +185,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!forecastResponse.ok) throw new Error(`Forecast data not available (${forecastResponse.status})`);
         const forecastData: ForecastData = await forecastResponse.json();
 
-        // Update the UI with the received weather data
-        document.getElementById("temperature")!.innerHTML = `${Math.round(weatherData.main.temp)}<span class="degree-symbol">°C</span>`;
+        updateWeatherUI(weatherData, forecastData);
 
-        //<h1 class="big-temp">${Math.round(weatherData.main.temp)}<sup class="big-temp-degrees">°C</sup></h1>
-
-        document.getElementById("city")!.textContent = weatherData.name;
-        document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
-
-        const weatherCondition = weatherData.weather[0].main;
-        const weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg";
-
-        const weatherImgElement = document.createElement("img");
-        weatherImgElement.src = weatherImage;
-        weatherImgElement.alt = weatherCondition;
-        weatherImgElement.className = "weather-icon";
-
-        const currentWeatherDiv = document.getElementById("current-weather")!;
-        currentWeatherDiv.innerHTML = "";
-        currentWeatherDiv.appendChild(weatherImgElement);
-
-
-        const timezoneOffset = weatherData.timezone; // Offset in seconds from UTC
-        const sunriseTime = new Date((weatherData.sys.sunrise + timezoneOffset) * 1000);
-        const sunsetTime = new Date((weatherData.sys.sunset + timezoneOffset) * 1000);
-
-        document.getElementById("sunrise-time")!.textContent = sunriseTime.toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        });
-
-        document.getElementById("sunset-time")!.textContent = sunsetTime.toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        });
-        // Update sunrise and sunset times
-        // Update sunrise and sunset times
-
-        updateForecast(forecastData);
       } catch (error) {
         console.error("Error fetching weather:", error);
         document.getElementById("city")!.textContent = "Unable to fetch weather!";
