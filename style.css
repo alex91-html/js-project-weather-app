@@ -113,7 +113,7 @@ img {
 /* Search Bar */
 nav {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 10px;
   margin-bottom: 15px;
 }
