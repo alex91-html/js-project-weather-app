@@ -35,15 +35,3 @@ display sunset/sunrise in 24 hour  format, change text sizes, rounded to temp va
 - **Selin**  09.30-15.15 thuesday and after 19.00, on thuesday and all day on wednesday.
 
 
-
-
-
-
-// prompt idea:
-
-html 
-css
-API URL 
-API CONTENT
-
-*based on the following html, css, api link and api data generate TS code that fetches data from URL and creates a dynamic html from the static html in <section class="container"> – clicking on btn shows a new city data, in section-forecast shows the weather forecast.
