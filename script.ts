@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const forecastData: ForecastData = await forecastResponse.json();
 
 
-      document.getElementById("temperature")!.textContent = `${Math.round(weatherData.main.temp)}°C`;
+      document.getElementById("temperature")!.innerHTML = `${Math.round(weatherData.main.temp)}<span class="degree-symbol">°C</span>`;
       document.getElementById("city")!.textContent = weatherData.name;
       document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
 
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const forecastData: ForecastData = await forecastResponse.json();
 
         // Update the UI with the received weather data
-        document.getElementById("temperature")!.textContent = `${Math.round(weatherData.main.temp)}°C`;
+        document.getElementById("temperature")!.innerHTML = `${Math.round(weatherData.main.temp)}<span class="degree-symbol">°C</span>`;
         document.getElementById("city")!.textContent = weatherData.name;
         document.getElementById("weather-condition")!.textContent = weatherData.weather[0].description;
 

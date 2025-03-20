@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
             getWeather(city);
     });
     getWeather();
-    //buttons
+    //functions for getting current coordinates and displaying according weather and forecast
     var getWeatherByCoordinates = function () { return __awaiter(_this, void 0, void 0, function () {
         var _this = this;
         return __generator(this, function (_a) {

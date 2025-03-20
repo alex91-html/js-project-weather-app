@@ -66,6 +66,21 @@ img {
   /* justify-content: center; */
 }
 
+.degree-symbol {
+  font-size: 0.5em;
+  vertical-align: super;
+}
+
+.weather-icon {
+  width: 35%;
+  height: 35%;
+  right: 20px;
+  top: 35px;
+  object-fit: contain;
+  position: absolute;
+}
+
+/*
 .weather-icon {
   width: 80px;
   height: 80px;
@@ -74,6 +89,7 @@ img {
   right: 20px;
   top: 100px;
 }
+  */
 
 #temperature {
   font-size: 90px;
@@ -120,7 +136,7 @@ nav {
   display: flex;
   /* justify-content: center; */
   gap: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
 }
 
 .search {
@@ -176,7 +192,7 @@ nav {
 .button-container {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding-right: 20px;
   position: absolute;
   top: 50%;
   right: 0;
@@ -201,6 +217,7 @@ nav {
 .my-location {
   /* to make the icon whhite: */
   filter: invert(100%) brightness(2000%);
+
 }
 
 .round-button:hover {
@@ -222,11 +239,21 @@ nav {
     height: 896px;
   } */
 
+  nav {
+    margin-bottom: 100px;
+  }
+
   .button-container {
     padding: 20px;
     position: absolute;
-    top: 30%;
-    right: 0;
+    top: 40%;
+    right: 35px;
+  }
+
+
+  .my-location {
+    width: 90%;
+    height: 90%;
   }
 
   #temperature {
@@ -257,8 +284,17 @@ nav {
   }
 
   .current-weather {
-    height: 400px;
+    height: 500px;
   }
+}
+
+@media ((min-width: 400px) and (max-width: 1024px)) {
+
+  .button-container {
+    top: 48%;
+    right: 35px;
+  }
+
 }
 
 @media (min-width: 1024px) {
@@ -278,7 +314,7 @@ nav {
   }
 
   .button-container {
-    top: 55%;
+    top: 51%;
     right: 70px;
   }
 
@@ -288,6 +324,11 @@ nav {
     /* box-shadow: ; */
     font-size: 100px;
 
+  }
+
+  .my-location {
+    width: 90%;
+    height: 90%;
   }
 
   #temperature {
@@ -300,7 +341,7 @@ nav {
 
   .sunrise,
   .sunset {
-    font-size: 26 px;
+    font-size: 26px;
   }
 
   .day,
