@@ -48,6 +48,10 @@ img {
   /* justify-content: center; */
 }
 
+#currentWeatherTwo.dark-weather {
+  background: linear-gradient(#252885, #8589FF);
+}
+
 .degree-symbol {
   font-size: 0.5em;
   vertical-align: super;
