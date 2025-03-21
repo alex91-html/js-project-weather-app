@@ -5,18 +5,11 @@ tsc script.ts - wrong
 
 only TSC!!!!
 
-#### Wednesday agenda
-- [x] Iphone 5 - fix responsiveness 
-- [/] icons
-- [x] Fix the button so its an arrow instead of text
-- [x] TS: fetch API
-- [x] delete static html for section container and place it in TS/js
-- [x] Make it to a 4-day forecast
-- 
-
-### Thursday 
-- [x] last adjustment, maybe in styling? 
-- [x] prepare presentation
+#### last tweaks
+- [x] fix the Celsius letter so that it’s smaller and higher
+- [x] Fix night (moon and background)
+- [] Maybe some last tweak on responsiveness
+- [] upload on netifly
 
 -------------------------------------------
 
