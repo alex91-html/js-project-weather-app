@@ -16,9 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("weather-condition").textContent = weatherData.weather[0].description;
         const weatherCondition = weatherData.weather[0].main;
         let weatherImage = weatherIcons[weatherCondition] || "./assets/Sun.svg";
-        const currentTime = new Date().getTime() / 1000;
-        if (currentTime < weatherData.sys.sunrise || currentTime > weatherData.sys.sunset) {
-            weatherImage = weatherIcons["Night"] || weatherImage;
+        const localTime = Math.floor(Date.now() / 1000) + weatherData.timezone - new Date().getTimezoneOffset() * 60;
+        const isNight = localTime < weatherData.sys.sunrise || localTime > weatherData.sys.sunset;
+        const currentWeatherTwo = document.getElementById("currentWeatherTwo");
+        if (currentWeatherTwo) {
+            if (isNight) {
+                weatherImage = weatherIcons["Night"] || weatherImage;
+                currentWeatherTwo.classList.add("dark-weather");
+            }
+            else {
+                currentWeatherTwo.classList.remove("dark-weather");
+            }
         }
         const weatherImgElement = document.createElement("img");
         weatherImgElement.src = weatherImage;
